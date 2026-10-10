@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Overview | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="app-page">
+<header class="topbar">
+    <a class="brand" th:href="@{/dashboard}"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account">
+        <span class="account-label" th:text="${user.name}">Account</span>
+        <form th:action="@{/logout}" method="post"><button class="text-button" type="submit">Sign out</button></form>
+    </nav>
+</header>
+<main class="page-wrap">
+    <section class="page-heading">
+        <div>
+            <p class="eyebrow" th:text="${#temporals.format(today, 'EEEE, d MMMM yyyy')}">Today</p>
+            <h1>Good to see you, <span th:text="${user.name}">there</span>.</h1>
+            <p class="muted">Here's the state of your important dates.</p>
+        </div>
+        <a class="button button-primary" th:href="@{/documents/new}"><span aria-hidden="true">+</span> Add document</a>
+    </section>
+
+    <div class="notice notice-success" th:if="${param.added}">Document added to your records.</div>
+    <div class="notice notice-success" th:if="${param.renewed}">Renewal saved to your history.</div>
+
+    <section class="summary-grid" aria-label="Document overview">
+        <div class="summary-item summary-alert">
+            <span class="summary-label">Expired</span>
+            <strong th:text="${expiredCount}">0</strong>
+            <span class="summary-caption">Needs attention</span>
+        </div>
+        <div class="summary-item summary-soon">
+            <span class="summary-label">Due in 7 days</span>
+            <strong th:text="${urgentCount}">0</strong>
+            <span class="summary-caption">Coming up now</span>
+        </div>
+        <div class="summary-item summary-next">
+            <span class="summary-label">Due in 30 days</span>
+            <strong th:text="${upcomingCount + urgentCount}">0</strong>
+            <span class="summary-caption">Plan ahead</span>
+        </div>
+        <div class="summary-item summary-total">
+            <span class="summary-label">All documents</span>
+            <strong th:text="${#lists.size(documents)}">0</strong>
+            <span class="summary-caption">In your collection</span>
+        </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="documents-heading">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Your records</p>
+                <h2 id="documents-heading">Documents <span class="count-mark" th:text="${#lists.size(documents)}">0</span></h2>
+            </div>
+            <a class="quiet-link" th:href="@{/documents/new}">Add another <span aria-hidden="true">&#8594;</span></a>
+        </div>
+
+        <div class="empty-state" th:if="${#lists.isEmpty(documents)}">
+            <span class="empty-number">01</span>
+            <div><h3>Your list starts here.</h3><p>Add a passport, insurance policy, license, or any document with a date to keep.</p></div>
+            <a class="button button-outline" th:href="@{/documents/new}">Add your first document</a>
+        </div>
+
+        <div class="table-scroll" th:unless="${#lists.isEmpty(documents)}">
+            <table class="document-table">
+                <thead>
+                <tr><th scope="col">Document</th><th scope="col">Category</th><th scope="col">Expiry date</th><th scope="col">Time left</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Open</span></th></tr>
+                </thead>
+                <tbody>
+                <tr th:each="document : ${documents}">
+                    <td data-label="Document"><a class="document-name" th:href="@{/documents/{id}(id=${document.id})}" th:text="${document.title}">Passport</a><span class="document-reference" th:if="${document.referenceNumber != null}" th:text="${document.referenceNumber}">Reference</span></td>
+                    <td data-label="Category"><span class="category-label" th:text="${document.category.label}">Identification</span></td>
+                    <td data-label="Expiry date" class="date-cell" th:text="${#temporals.format(document.expiryDate, 'd MMM yyyy')}">5 Oct 2026</td>
+                    <td data-label="Time left" class="remaining-cell" th:text="${document.daysUntilExpiry < 0 ? (-document.daysUntilExpiry + ' days overdue') : (document.daysUntilExpiry == 0 ? 'Today' : document.daysUntilExpiry + ' days')}">20 days</td>
+                    <td data-label="Status"><span class="status-pill" th:classappend="${document.status.cssClass}" th:text="${document.status.label}">Current</span></td>
+                    <td class="row-action"><a class="arrow-link" th:href="@{/documents/{id}(id=${document.id})}" aria-label="View document">&#8594;</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="reminders" class="content-section reminders-section" aria-labelledby="reminders-heading">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">Scheduled notices</p>
+                <h2 id="reminders-heading">Reminders <span class="count-mark" th:if="${unreadReminders > 0}" th:text="${unreadReminders}">0</span></h2>
+            </div>
+            <span class="section-note">Generated daily at 08:00</span>
+        </div>
+        <div class="reminder-empty" th:if="${#lists.isEmpty(reminders)}">No reminders yet. Daily notices begin 10 days before a document expires.</div>
+        <ul class="reminder-list" th:unless="${#lists.isEmpty(reminders)}">
+            <li class="reminder-row" th:each="reminder : ${reminders}" th:classappend="${reminder.readAt == null ? 'reminder-unread' : ''}">
+                <span class="reminder-dot" aria-hidden="true"></span>
+                <div class="reminder-copy">
+                    <p><a th:href="@{/documents/{id}(id=${reminder.document.id})}" th:text="${reminder.document.title}">Passport</a>
+                        <span th:text="${reminder.daysBefore == 0 ? 'expires today' : 'expires in ' + reminder.daysBefore + ' days'}">expires in 30 days</span></p>
+                    <time th:datetime="${#temporals.format(reminder.createdAt, 'yyyy-MM-dd''T''HH:mm:ss')}" th:text="${#temporals.format(reminder.createdAt, 'd MMM yyyy, HH:mm')}">Today</time>
+                </div>
+                <form th:if="${reminder.readAt == null}" th:action="@{/reminders/{id}/read(id=${reminder.id})}" method="post">
+                    <button class="text-button" type="submit">Mark read</button>
+                </form>
+                <span class="read-label" th:if="${reminder.readAt != null}">Read</span>
+            </li>
+        </ul>
+    </section>
+    <footer class="page-footer"><span>Keepwell</span><span>Dates worth remembering.</span></footer>
+</main>
+</body>
+</html>

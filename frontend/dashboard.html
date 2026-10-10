@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Overview | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script type="module" src="/src/app.js"></script>
+</head>
+<body class="app-page" data-page="dashboard">
+<header class="topbar">
+    <a class="brand" href="/dashboard.html"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account">
+        <span id="account-name" class="account-label">Account</span>
+        <button class="text-button" type="button" data-logout>Sign out</button>
+    </nav>
+</header>
+<main class="page-wrap">
+    <div id="message" class="notice" role="alert" hidden></div>
+    <section class="page-heading">
+        <div>
+            <p id="today" class="eyebrow">Today</p>
+            <h1>Good to see you, <span id="greeting-name">there</span>.</h1>
+            <p class="muted">Here's the state of your important dates.</p>
+        </div>
+        <a class="button button-primary" href="/document-form.html"><span aria-hidden="true">+</span> Add document</a>
+    </section>
+    <section class="summary-grid" aria-label="Document overview">
+        <div class="summary-item summary-alert"><span class="summary-label">Expired</span><strong id="expired-count">0</strong><span class="summary-caption">Needs attention</span></div>
+        <div class="summary-item summary-soon"><span class="summary-label">Due in 7 days</span><strong id="urgent-count">0</strong><span class="summary-caption">Coming up now</span></div>
+        <div class="summary-item summary-next"><span class="summary-label">Due in 30 days</span><strong id="due-count">0</strong><span class="summary-caption">Plan ahead</span></div>
+        <div class="summary-item summary-total"><span class="summary-label">All documents</span><strong id="document-count">0</strong><span class="summary-caption">In your collection</span></div>
+    </section>
+    <section class="content-section" aria-labelledby="documents-heading">
+        <div class="section-heading">
+            <div><p class="eyebrow">Your records</p><h2 id="documents-heading">Documents <span id="document-count-mark" class="count-mark">0</span></h2></div>
+            <a class="quiet-link" href="/document-form.html">Add another <span aria-hidden="true">&#8594;</span></a>
+        </div>
+        <div id="documents-empty" class="empty-state" hidden>
+            <span class="empty-number">01</span>
+            <div><h3>Your list starts here.</h3><p>Add a passport, insurance policy, license, or any document with a date to keep.</p></div>
+            <a class="button button-outline" href="/document-form.html">Add your first document</a>
+        </div>
+        <div id="documents-table-wrap" class="table-scroll">
+            <table class="document-table">
+                <thead><tr><th scope="col">Document</th><th scope="col">Category</th><th scope="col">Expiry date</th><th scope="col">Time left</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Open</span></th></tr></thead>
+                <tbody id="documents-body"></tbody>
+            </table>
+        </div>
+    </section>
+    <section id="reminders" class="content-section reminders-section" aria-labelledby="reminders-heading">
+        <div class="section-heading">
+            <div><p class="eyebrow">Scheduled notices</p><h2 id="reminders-heading">Reminders <span id="unread-count" class="count-mark" hidden>0</span></h2></div>
+            <span class="section-note">Generated daily at 08:00</span>
+        </div>
+        <div id="reminders-empty" class="reminder-empty" hidden>No reminders yet. Daily notices begin 10 days before a document expires.</div>
+        <ul id="reminder-list" class="reminder-list"></ul>
+    </section>
+    <footer class="page-footer"><span>Keepwell</span><span>Dates worth remembering.</span></footer>
+</main>
+</body>
+</html>

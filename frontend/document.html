@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script type="module" src="/src/app.js"></script>
+</head>
+<body class="app-page" data-page="document">
+<header class="topbar">
+    <a class="brand" href="/dashboard.html"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account"><a class="text-button" href="/dashboard.html">Overview</a><button class="text-button" type="button" data-logout>Sign out</button></nav>
+</header>
+<main class="page-wrap narrow-wrap">
+    <a class="back-link" href="/dashboard.html"><span aria-hidden="true">&#8592;</span> All documents</a>
+    <div id="message" class="notice" role="alert" hidden></div>
+    <section class="detail-heading">
+        <div><p id="document-category" class="eyebrow"></p><h1 id="document-title">Loading document</h1></div>
+        <span id="document-status" class="status-pill detail-status"></span>
+    </section>
+    <section class="expiry-band"><div class="expiry-date-block"><span class="summary-label">Expires on</span><strong id="expiry-date"></strong></div><p id="time-left"></p></section>
+    <div class="detail-actions"><a id="renew-link" class="button button-primary" href="#">Record a renewal</a><a id="edit-link" class="button button-outline" href="#">Edit details</a></div>
+    <section class="detail-section">
+        <div class="section-heading section-heading-compact"><div><p class="eyebrow">Document details</p><h2>At a glance</h2></div></div>
+        <dl class="detail-grid">
+            <div><dt>Category</dt><dd id="detail-category"></dd></div>
+            <div><dt>Reference number</dt><dd id="reference-number"></dd></div>
+            <div><dt>Issue date</dt><dd id="issue-date"></dd></div>
+            <div><dt>Added to Keepwell</dt><dd id="created-date"></dd></div>
+        </dl>
+        <div id="notes-block" class="notes-block" hidden><h3>Notes</h3><p id="document-notes"></p></div>
+    </section>
+    <section class="detail-section history-section">
+        <div class="section-heading section-heading-compact"><div><p class="eyebrow">Renewals</p><h2>History <span id="renewal-count" class="count-mark">0</span></h2></div></div>
+        <p id="history-empty" class="history-empty">Renewals you record will appear here.</p>
+        <ol id="history-list" class="history-list"></ol>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create account | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script type="module" src="/src/app.js"></script>
+</head>
+<body class="auth-page" data-page="register">
+<main class="auth-layout">
+    <section class="auth-story" aria-label="Keepwell">
+        <a class="brand brand-light" href="/"><span class="brand-mark">K</span><span>keepwell</span></a>
+        <div class="story-copy">
+            <p class="eyebrow eyebrow-light">A little more in order</p>
+            <h1>Make room<br>for peace of mind.</h1>
+            <p class="story-note">Every important date, thoughtfully kept.</p>
+        </div>
+        <div class="story-index"><span>01</span><span class="story-rule"></span><span>YOUR PERSONAL RECORDS</span></div>
+    </section>
+    <section class="auth-panel">
+        <div class="auth-form-wrap">
+            <p class="eyebrow">Get started</p>
+            <h2>Create your account</h2>
+            <p class="muted">A secure home for your document dates.</p>
+            <div id="message" class="notice" role="alert" hidden></div>
+            <form id="register-form" class="stack-form">
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required maxlength="100">
+                <p class="field-error" data-error="name"></p>
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" required maxlength="190">
+                <p class="field-error" data-error="email"></p>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="72">
+                <p class="field-hint">Use at least 8 characters.</p>
+                <p class="field-error" data-error="password"></p>
+                <button class="button button-primary button-wide" type="submit">Create account <span aria-hidden="true">&#8594;</span></button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="/">Sign in</a></p>
+        </div>
+        <p class="auth-foot">Your records are private to your account.</p>
+    </section>
+</main>
+</body>
+</html>

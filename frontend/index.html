@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script type="module" src="/src/app.js"></script>
+</head>
+<body class="auth-page" data-page="login">
+<main class="auth-layout">
+    <section class="auth-story" aria-label="Keepwell">
+        <a class="brand brand-light" href="/"><span class="brand-mark">K</span><span>keepwell</span></a>
+        <div class="story-copy">
+            <p class="eyebrow eyebrow-light">A little more in order</p>
+            <h1>Important things,<br>right on time.</h1>
+            <p class="story-note">One calm place for the dates that matter.</p>
+        </div>
+        <div class="story-index"><span>01</span><span class="story-rule"></span><span>YOUR PERSONAL RECORDS</span></div>
+    </section>
+    <section class="auth-panel">
+        <div class="auth-form-wrap">
+            <p class="eyebrow">Welcome back</p>
+            <h2>Sign in to Keepwell</h2>
+            <p class="muted">Your documents are right where you left them.</p>
+            <div id="message" class="notice" role="alert" hidden></div>
+            <form id="login-form" class="stack-form">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" required autofocus>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+                <button class="button button-primary button-wide" type="submit">Sign in <span aria-hidden="true">&#8594;</span></button>
+            </form>
+            <p class="auth-switch">New to Keepwell? <a href="/register.html">Create an account</a></p>
+        </div>
+        <p class="auth-foot">Your records are private to your account.</p>
+    </section>
+</main>
+</body>
+</html>

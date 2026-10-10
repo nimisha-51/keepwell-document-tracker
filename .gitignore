@@ -1,0 +1,24 @@
+/target/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.env
+/frontend/.env.*
+!/frontend/.env.example
+/.idea/
+/.vscode/
+*.log
+Thumbs.db
+.DS_Store
+# Environment and secrets
+.env
+.env.*
+!.env.example
+/src/main/resources/application-local.properties
+/src/main/resources/application-local.yml
+
+# Local IDE files
+*.iml
+
+# Local database files
+*.db
+*.sqlite

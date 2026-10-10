@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-page">
+<main class="auth-layout">
+    <section class="auth-story" aria-label="Keepwell">
+        <a class="brand brand-light" th:href="@{/}"><span class="brand-mark">K</span><span>keepwell</span></a>
+        <div class="story-copy">
+            <p class="eyebrow eyebrow-light">A little more in order</p>
+            <h1>Important things,<br>right on time.</h1>
+            <p class="story-note">One calm place for the dates that matter.</p>
+        </div>
+        <div class="story-index"><span>01</span><span class="story-rule"></span><span>YOUR PERSONAL RECORDS</span></div>
+    </section>
+    <section class="auth-panel">
+        <div class="auth-form-wrap">
+            <p class="eyebrow">Welcome back</p>
+            <h2>Sign in to Keepwell</h2>
+            <p class="muted">Your documents are right where you left them.</p>
+            <div class="notice notice-success" th:if="${param.registered}">Account created. Sign in to get started.</div>
+            <div class="notice notice-neutral" th:if="${param.logout}">You have been signed out.</div>
+            <div class="notice notice-error" th:if="${param.error}">Email or password wasn't recognized.</div>
+            <form class="stack-form" th:action="@{/login}" method="post">
+                <label for="username">Email address</label>
+                <input id="username" name="username" type="email" autocomplete="email" required autofocus>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+                <button class="button button-primary button-wide" type="submit">Sign in <span aria-hidden="true">&#8594;</span></button>
+            </form>
+            <p class="auth-switch">New to Keepwell? <a th:href="@{/register}">Create an account</a></p>
+        </div>
+        <p class="auth-foot">Your records are private to your account.</p>
+    </section>
+</main>
+</body>
+</html>

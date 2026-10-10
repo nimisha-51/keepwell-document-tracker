@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Record renewal | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script type="module" src="/src/app.js"></script>
+</head>
+<body class="app-page" data-page="renewal">
+<header class="topbar">
+    <a class="brand" href="/dashboard.html"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account"><a class="text-button" href="/dashboard.html">Overview</a><button class="text-button" type="button" data-logout>Sign out</button></nav>
+</header>
+<main class="page-wrap narrow-wrap">
+    <a id="back-link" class="back-link" href="/dashboard.html"><span aria-hidden="true">&#8592;</span> Back to document</a>
+    <div id="message" class="notice" role="alert" hidden></div>
+    <section class="form-intro">
+        <p class="eyebrow">Renewal record</p>
+        <h1>Update the expiry date.</h1>
+        <p class="muted">For <strong id="document-title">your document</strong>, currently expiring <span id="current-expiry"></span>.</p>
+    </section>
+    <form id="renewal-form" class="record-form">
+        <div class="form-field"><label for="expiryDate">New expiry date <span class="required-mark">*</span></label><input id="expiryDate" name="expiryDate" type="date" required><p class="field-error" data-error="expiryDate"></p></div>
+        <div class="form-field"><label for="notes">Renewal notes <span class="optional-mark">Optional</span></label><textarea id="notes" name="notes" rows="4" maxlength="4000" placeholder="Confirmation number, renewal date, or next steps."></textarea><p class="field-error" data-error="notes"></p></div>
+        <div class="form-actions"><a id="cancel-link" class="button button-outline" href="/dashboard.html">Cancel</a><button class="button button-primary" type="submit">Save renewal <span aria-hidden="true">&#8594;</span></button></div>
+    </form>
+</main>
+</body>
+</html>

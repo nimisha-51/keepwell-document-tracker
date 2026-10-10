@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Not found | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="app-page">
+<header class="topbar"><a class="brand" th:href="@{/dashboard}"><span class="brand-mark">K</span><span>keepwell</span></a></header>
+<main class="page-wrap not-found">
+    <p class="eyebrow">404 / Not found</p>
+    <h1>This record isn't here.</h1>
+    <p class="muted">It may have been removed, or it may belong to another account.</p>
+    <a class="button button-primary" th:href="@{/dashboard}">Back to overview <span aria-hidden="true">&#8594;</span></a>
+</main>
+</body>
+</html>

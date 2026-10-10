@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Record renewal | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="app-page">
+<header class="topbar">
+    <a class="brand" th:href="@{/dashboard}"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account">
+        <a class="text-button" th:href="@{/dashboard}">Overview</a>
+        <form th:action="@{/logout}" method="post"><button class="text-button" type="submit">Sign out</button></form>
+    </nav>
+</header>
+<main class="page-wrap narrow-wrap">
+    <a class="back-link" th:href="@{/documents/{id}(id=${document.id})}"><span aria-hidden="true">&#8592;</span> Back to document</a>
+    <section class="form-intro">
+        <p class="eyebrow">Renewal record</p>
+        <h1>Update the expiry date.</h1>
+        <p class="muted">For <strong th:text="${document.title}">Passport</strong>, currently expiring <span th:text="${#temporals.format(document.expiryDate, 'd MMM yyyy')}">5 Oct 2026</span>.</p>
+    </section>
+    <form class="record-form" th:action="@{/documents/{id}/renew(id=${document.id})}" th:object="${renewalForm}" method="post">
+        <div class="form-field">
+            <label for="expiryDate">New expiry date <span class="required-mark">*</span></label>
+            <input id="expiryDate" type="date" th:field="*{expiryDate}" required>
+            <p class="field-error" th:if="${#fields.hasErrors('expiryDate')}" th:errors="*{expiryDate}"></p>
+        </div>
+        <div class="form-field">
+            <label for="notes">Renewal notes <span class="optional-mark">Optional</span></label>
+            <textarea id="notes" th:field="*{notes}" rows="4" maxlength="4000" placeholder="Confirmation number, renewal date, or next steps."></textarea>
+            <p class="field-error" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></p>
+        </div>
+        <div class="form-actions">
+            <a class="button button-outline" th:href="@{/documents/{id}(id=${document.id})}">Cancel</a>
+            <button class="button button-primary" type="submit">Save renewal <span aria-hidden="true">&#8594;</span></button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

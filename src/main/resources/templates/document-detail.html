@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${document.title} + ' | Keepwell'">Document | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="app-page">
+<header class="topbar">
+    <a class="brand" th:href="@{/dashboard}"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account">
+        <a class="text-button" th:href="@{/dashboard}">Overview</a>
+        <form th:action="@{/logout}" method="post"><button class="text-button" type="submit">Sign out</button></form>
+    </nav>
+</header>
+<main class="page-wrap narrow-wrap">
+    <a class="back-link" th:href="@{/dashboard}"><span aria-hidden="true">&#8592;</span> All documents</a>
+    <div class="notice notice-success" th:if="${param.renewed}">Renewal saved to your history.</div>
+    <section class="detail-heading">
+        <div>
+            <p class="eyebrow" th:text="${document.category.label}">Identification</p>
+            <h1 th:text="${document.title}">Passport</h1>
+        </div>
+        <span class="status-pill detail-status" th:classappend="${document.status.cssClass}" th:text="${document.status.label}">Current</span>
+    </section>
+    <section class="expiry-band">
+        <div class="expiry-date-block">
+            <span class="summary-label">Expires on</span>
+            <strong th:text="${#temporals.format(document.expiryDate, 'd MMMM yyyy')}">5 October 2026</strong>
+        </div>
+        <p th:text="${document.daysUntilExpiry < 0 ? (-document.daysUntilExpiry + ' days overdue') : (document.daysUntilExpiry == 0 ? 'Expires today' : document.daysUntilExpiry + ' days remaining')}">20 days remaining</p>
+    </section>
+    <div class="detail-actions">
+        <a class="button button-primary" th:href="@{/documents/{id}/renew(id=${document.id})}">Record a renewal</a>
+        <a class="button button-outline" th:href="@{/documents/{id}/edit(id=${document.id})}">Edit details</a>
+    </div>
+    <section class="detail-section">
+        <div class="section-heading section-heading-compact"><div><p class="eyebrow">Document details</p><h2>At a glance</h2></div></div>
+        <dl class="detail-grid">
+            <div><dt>Category</dt><dd th:text="${document.category.label}">Identification</dd></div>
+            <div><dt>Reference number</dt><dd th:text="${document.referenceNumber == null ? 'Not added' : document.referenceNumber}">Not added</dd></div>
+            <div><dt>Issue date</dt><dd th:text="${document.issueDate == null ? 'Not added' : #temporals.format(document.issueDate, 'd MMM yyyy')}">Not added</dd></div>
+            <div><dt>Added to Keepwell</dt><dd th:text="${#temporals.format(document.createdAt, 'd MMM yyyy')}">5 October 2026</dd></div>
+        </dl>
+        <div class="notes-block" th:if="${document.notes != null and !document.notes.isBlank()}">
+            <h3>Notes</h3><p th:text="${document.notes}">Notes</p>
+        </div>
+    </section>
+    <section class="detail-section history-section">
+        <div class="section-heading section-heading-compact"><div><p class="eyebrow">Renewals</p><h2>History <span class="count-mark" th:text="${#lists.size(renewals)}">0</span></h2></div></div>
+        <p class="history-empty" th:if="${#lists.isEmpty(renewals)}">Renewals you record will appear here.</p>
+        <ol class="history-list" th:unless="${#lists.isEmpty(renewals)}">
+            <li th:each="renewal : ${renewals}">
+                <span class="history-date" th:text="${#temporals.format(renewal.renewedAt, 'd MMM yyyy')}">5 October 2026</span>
+                <div><strong>Expiry extended</strong><p><span th:text="${#temporals.format(renewal.previousExpiryDate, 'd MMM yyyy')}">Previous date</span> <span aria-hidden="true">&#8594;</span> <span th:text="${#temporals.format(renewal.newExpiryDate, 'd MMM yyyy')}">New date</span></p><p class="history-note" th:if="${renewal.notes != null}" th:text="${renewal.notes}">Renewal notes</p></div>
+            </li>
+        </ol>
+    </section>
+</main>
+</body>
+</html>

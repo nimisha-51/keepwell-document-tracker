@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle} + ' | Keepwell'">Document | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="app-page">
+<header class="topbar">
+    <a class="brand" th:href="@{/dashboard}"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account">
+        <a class="text-button" th:href="@{/dashboard}">Overview</a>
+        <form th:action="@{/logout}" method="post"><button class="text-button" type="submit">Sign out</button></form>
+    </nav>
+</header>
+<main class="page-wrap narrow-wrap">
+    <a class="back-link" th:href="${documentId == null ? '/dashboard' : '/documents/' + documentId}"><span aria-hidden="true">&#8592;</span> Back</a>
+    <section class="form-intro">
+        <p class="eyebrow">Your records</p>
+        <h1 th:text="${pageTitle}">Add a document</h1>
+        <p class="muted">Keep the details you need to find it, and the date you need to remember.</p>
+    </section>
+    <form class="record-form" th:action="${formAction}" th:object="${documentForm}" method="post">
+        <div class="form-field">
+            <label for="title">Document name <span class="required-mark">*</span></label>
+            <input id="title" type="text" th:field="*{title}" placeholder="e.g. Passport" maxlength="120" required>
+            <p class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+        </div>
+        <div class="form-field">
+            <label for="category">Category <span class="required-mark">*</span></label>
+            <select id="category" th:field="*{category}" required>
+                <option value="">Choose a category</option>
+                <option th:each="category : ${categories}" th:value="${category}" th:text="${category.label}">Other</option>
+            </select>
+            <p class="field-error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+        </div>
+        <div class="form-field">
+            <label for="referenceNumber">Reference number <span class="optional-mark">Optional</span></label>
+            <input id="referenceNumber" type="text" th:field="*{referenceNumber}" placeholder="Number or short identifier" maxlength="100" autocomplete="off">
+            <p class="field-hint">Only add this if it helps you identify the document.</p>
+            <p class="field-error" th:if="${#fields.hasErrors('referenceNumber')}" th:errors="*{referenceNumber}"></p>
+        </div>
+        <div class="form-date-grid">
+            <div class="form-field">
+                <label for="issueDate">Issue date <span class="optional-mark">Optional</span></label>
+                <input id="issueDate" type="date" th:field="*{issueDate}">
+                <p class="field-error" th:if="${#fields.hasErrors('issueDate')}" th:errors="*{issueDate}"></p>
+            </div>
+            <div class="form-field">
+                <label for="expiryDate">Expiry date <span class="required-mark">*</span></label>
+                <input id="expiryDate" type="date" th:field="*{expiryDate}" required>
+                <p class="field-error" th:if="${#fields.hasErrors('expiryDate')}" th:errors="*{expiryDate}"></p>
+            </div>
+        </div>
+        <div class="form-field">
+            <label for="notes">Notes <span class="optional-mark">Optional</span></label>
+            <textarea id="notes" th:field="*{notes}" rows="4" maxlength="4000" placeholder="Where it's kept, renewal steps, or anything useful."></textarea>
+            <p class="field-error" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></p>
+        </div>
+        <div class="form-actions">
+            <a class="button button-outline" th:href="${documentId == null ? '/dashboard' : '/documents/' + documentId}">Cancel</a>
+            <button class="button button-primary" type="submit">Save document <span aria-hidden="true">&#8594;</span></button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

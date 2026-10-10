@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document | Keepwell</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script type="module" src="/src/app.js"></script>
+</head>
+<body class="app-page" data-page="document-form">
+<header class="topbar">
+    <a class="brand" href="/dashboard.html"><span class="brand-mark">K</span><span>keepwell</span></a>
+    <nav class="topbar-actions" aria-label="Account"><a class="text-button" href="/dashboard.html">Overview</a><button class="text-button" type="button" data-logout>Sign out</button></nav>
+</header>
+<main class="page-wrap narrow-wrap">
+    <a id="back-link" class="back-link" href="/dashboard.html"><span aria-hidden="true">&#8592;</span> Back</a>
+    <div id="message" class="notice" role="alert" hidden></div>
+    <section class="form-intro">
+        <p class="eyebrow">Your records</p>
+        <h1 id="form-title">Add a document</h1>
+        <p class="muted">Keep the details you need to find it, and the date you need to remember.</p>
+    </section>
+    <form id="document-form" class="record-form">
+        <div class="form-field"><label for="title">Document name <span class="required-mark">*</span></label><input id="title" name="title" type="text" placeholder="e.g. Passport" maxlength="120" required><p class="field-error" data-error="title"></p></div>
+        <div class="form-field"><label for="category">Category <span class="required-mark">*</span></label><select id="category" name="category" required><option value="">Choose a category</option></select><p class="field-error" data-error="category"></p></div>
+        <div class="form-field"><label for="referenceNumber">Reference number <span class="optional-mark">Optional</span></label><input id="referenceNumber" name="referenceNumber" type="text" placeholder="Number or short identifier" maxlength="100" autocomplete="off"><p class="field-hint">Only add this if it helps you identify the document.</p><p class="field-error" data-error="referenceNumber"></p></div>
+        <div class="form-date-grid">
+            <div class="form-field"><label for="issueDate">Issue date <span class="optional-mark">Optional</span></label><input id="issueDate" name="issueDate" type="date"><p class="field-error" data-error="issueDate"></p></div>
+            <div class="form-field"><label for="expiryDate">Expiry date <span class="required-mark">*</span></label><input id="expiryDate" name="expiryDate" type="date" required><p class="field-error" data-error="expiryDate"></p></div>
+        </div>
+        <div class="form-field"><label for="notes">Notes <span class="optional-mark">Optional</span></label><textarea id="notes" name="notes" rows="4" maxlength="4000" placeholder="Where it's kept, renewal steps, or anything useful."></textarea><p class="field-error" data-error="notes"></p></div>
+        <div class="form-actions"><a id="cancel-link" class="button button-outline" href="/dashboard.html">Cancel</a><button class="button button-primary" type="submit">Save document <span aria-hidden="true">&#8594;</span></button></div>
+    </form>
+</main>
+</body>
+</html>
